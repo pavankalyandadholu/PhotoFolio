@@ -1,3 +1,4 @@
+import AlbumList from "./components/AlbumList"
 import Navbar from "./components/Navbar"
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
   return (
     <>
     <Navbar/>
+    <AlbumList/>
     </>
   )
 }
