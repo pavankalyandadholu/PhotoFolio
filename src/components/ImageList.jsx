@@ -34,6 +34,53 @@ export default function ImageList(props ) {
                     }}>{isAddImage?"Cancel":"Add image"}</button>
                     </div>
                 </div>
+                <div className="imageContainer flex gap-6 items-center justify-center flex-wrap ">
+                    <div className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">
+                        <img className=" object-cover rounded-t-md w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmXdMwAv3wNLquLKnaf87wqg0cSG-Zn8OPPw&s" alt="" />
+                        <h3 className=" text-center text-xl font-medium mt-2">Title</h3>
+                        <div className="buttons absolute top-0 right-0 p-2 hidden group-hover:block">
+                            <button  className=" mr-3">
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/10336/10336582.png" alt="" />
+                            </button>
+                            <button>
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/9790/9790368.png" alt="" /></button>
+                        </div>
+                    </div>
+                    <div className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">
+                        <img className=" object-cover rounded-t-md w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmXdMwAv3wNLquLKnaf87wqg0cSG-Zn8OPPw&s" alt="" />
+                        <h3 className=" text-center text-xl font-medium mt-2">Title</h3>
+                        <div className="buttons absolute top-0 right-0 p-2 hidden group-hover:block">
+                            <button  className=" mr-3">
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/10336/10336582.png" alt="" />
+                            </button>
+                            <button>
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/9790/9790368.png" alt="" /></button>
+                        </div>
+                    </div>
+                    <div className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">
+                        <img className=" object-cover rounded-t-md w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmXdMwAv3wNLquLKnaf87wqg0cSG-Zn8OPPw&s" alt="" />
+                        <h3 className=" text-center text-xl font-medium mt-2">Title</h3>
+                        <div className="buttons absolute top-0 right-0 p-2 hidden group-hover:block">
+                            <button  className=" mr-3">
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/10336/10336582.png" alt="" />
+                            </button>
+                            <button>
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/9790/9790368.png" alt="" /></button>
+                        </div>
+                    </div>
+                    <div className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">
+                        <img className=" object-cover rounded-t-md w-full" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmXdMwAv3wNLquLKnaf87wqg0cSG-Zn8OPPw&s" alt="" />
+                        <h3 className=" text-center text-xl font-medium mt-2">Title</h3>
+                        <div className="buttons absolute top-0 right-0 p-2 hidden group-hover:block">
+                            <button  className=" mr-3">
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/10336/10336582.png" alt="" />
+                            </button>
+                            <button>
+                                <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/9790/9790368.png" alt="" /></button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
     </>)
