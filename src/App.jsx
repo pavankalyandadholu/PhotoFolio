@@ -1,15 +1,20 @@
 import { useState } from "react"
 import AlbumList from "./components/AlbumList"
 import Navbar from "./components/Navbar"
+import ImageList from "./components/ImageList";
 function App() {
-  const [albumFormVisible, setAlbumFormVisible] = useState(false);
-  function toggleAlbumForm(){
-    setAlbumFormVisible(!albumFormVisible);
+  const [album, setAlbum] = useState(null);
+  function addAlbum(albumName){
+    setAlbum(albumName);
+  }
+  function resetAlbum(){
+    setAlbum(null);
   }
   return (
     <>
     <Navbar/>
-    <AlbumList isalbumFormVisible={albumFormVisible} toggleAlbumForm={toggleAlbumForm}/>
+    {album ? <ImageList album={album} resetAlbum={resetAlbum}/>:<AlbumList addAlbum={addAlbum}/>}
+  
     </>
   )
 }
