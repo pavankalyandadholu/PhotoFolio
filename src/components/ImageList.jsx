@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react"
 import ImageForm from "./ImageForm"
 import { db } from "../firebaseInIt"
-import { getDocs,collection, onSnapshot, deleteDoc, doc } from "firebase/firestore"
+import { collection, onSnapshot, deleteDoc, doc } from "firebase/firestore"
+import Carousel from "./Carousel"
 
 export default function ImageList(props ) {
     const [isSearching, setIsSearching] = useState(true)
-    const [isAddImage, setIsAddImage] = useState(false)
+    const [isAddImage, setIsAddImage] = useState(false);
+    const [updateImage, setUpdateImage] = useState(null);
+    const [carouselOn, setcarouselOn] = useState(false);
+    const [index, setIndex] = useState(0)
     const {resetAlbum,album}= props;
-
+    
     const [images, setImages] = useState([])
     useEffect(()=>{
         const snapShot= onSnapshot(collection(db,'PhotoFolio',album.id,'photos'),(snap)=>{
@@ -18,6 +22,13 @@ export default function ImageList(props ) {
         })
          return snapShot;
     },[])
+    function handleUpdateImageComponent(image){
+        setUpdateImage(image);
+        setIsAddImage(true);
+    }
+        function resetUpdateImageValue(){
+            setUpdateImage(null);
+        }
   async  function handleDelete(id){
         const photoRef= doc(db,'PhotoFolio',album.id,'photos',id);
         try{
@@ -27,12 +38,17 @@ export default function ImageList(props ) {
         }
         
     }
+    // function to close carousel
+    function closecarousel(){
+        setcarouselOn(false);
+    }
     
     return (<>
-        <section>
+        <section className="  w-full">
+            <Carousel images={images} carouselOn={carouselOn} closecarousel={closecarousel} startIndex={index}/>
             {/* image Form */}
-            {isAddImage && <ImageForm album={album}/>}
-
+            {isAddImage && <ImageForm album={album} updateImage={updateImage}  resetUpdateImageValue={resetUpdateImageValue}/>}
+            
             {/* image list */}
             <div className=" container">
                 <div className=" text-lg mx-auto max-w-4xl w-full flex flex-col md:flex-row gap-5 md:gap-0 items-center justify-between mt-6 p-3">
@@ -59,13 +75,19 @@ export default function ImageList(props ) {
                 </div>
                 <div className="imageContainer flex gap-6 items-center justify-center flex-wrap ">
                     {
-                        images.map((image)=>{
+                        images.map((image,i)=>{
                             return (
-<div key={image.id} className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">
-                        <img className=" object-cover rounded-t-md w-full h-40" src={image.imageUrl} alt="" />
-                        <h3 className=" text-center text-xl font-medium mt-2">{image.imageName}</h3>
+<div key={image.id} className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">                  
+    <div onClick={()=>{
+        setcarouselOn(true);
+        setIndex(i);
+    }}>
+    <img className=" object-cover rounded-t-md w-full h-40" src={image.imageUrl} alt="" />
+    <h3 className=" text-center text-xl font-medium mt-2">{image.imageName}</h3>
+    </div>
+                       
                         <div className="buttons absolute top-0 right-0 p-2 hidden group-hover:block">
-                            <button  className=" mr-3">
+                            <button onClick={()=>handleUpdateImageComponent(image)}  className=" mr-3">
                                 <img className=" w-8  border-2 rounded-full" src="https://cdn-icons-png.flaticon.com/128/10336/10336582.png" alt="" />
                             </button>
                             <button onClick={()=>handleDelete(image.id)}>
