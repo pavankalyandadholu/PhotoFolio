@@ -13,15 +13,30 @@ export default function ImageList(props ) {
     const {resetAlbum,album}= props;
     
     const [images, setImages] = useState([])
+    const [filteredImages , setFilteredImages ] = useState([]);
+    const [searchValue , setSearchValue ] = useState('')
+    
     useEffect(()=>{
         const snapShot= onSnapshot(collection(db,'PhotoFolio',album.id,'photos'),(snap)=>{
             const data= snap.docs.map((item)=>{
                 return {id:item.id,...item.data()}
             })
             setImages(data);
+            setFilteredImages(data)
         })
          return snapShot;
     },[])
+    useEffect(()=>{
+        const filteredValues=images.filter((image)=>image.imageName.includes(searchValue.trim()));
+        setFilteredImages([...filteredValues])
+    },[searchValue])
+
+    function handleSearch(e){
+        e.preventDefault()
+    }
+    function handleChange(e){
+        setSearchValue(e.target.value)
+    }
     function handleUpdateImageComponent(image){
         setUpdateImage(image);
         setIsAddImage(true);
@@ -60,8 +75,10 @@ export default function ImageList(props ) {
 
                     </div>
                     <div className=" flex items-center gap-6">
-                    <form  className=" flex items-center">
-                        <input className={` p-1 border-2 ${isSearching && "hidden"}  border-black rounded-md mr-2 `} type="text" />
+
+                        {/* Search Form */}
+                    <form  onSubmit={handleSearch}  className=" flex items-center">
+                        <input onChange={handleChange} className={` p-1 border-2 ${isSearching && "hidden"}  border-black rounded-md mr-2 `} type="text" />
                         <button type="button" onClick={()=>{
                             setIsSearching(!isSearching)
                         }}>
@@ -75,7 +92,7 @@ export default function ImageList(props ) {
                 </div>
                 <div className="imageContainer flex gap-6 items-center justify-center flex-wrap ">
                     {
-                        images.map((image,i)=>{
+                      filteredImages.length>0 &&  filteredImages.map((image,i)=>{
                             return (
 <div key={image.id} className="image border-2 p-3 rounded-md hover:shadow-lg w-48 relative group cursor-pointer transition-all  ">                  
     <div onClick={()=>{
